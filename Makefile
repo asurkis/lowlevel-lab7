@@ -6,7 +6,7 @@ default: build
 clean:
 	rm -rf out
 
-build: out/main.o
+build: out/main.o out/mem.o
 	$(CC) $(CFLAGS) out/*.o -o out/lab7
 
 run: build
