@@ -49,6 +49,8 @@ static void remove_chunk_inpage(struct MemoryHeader *to_remove) {
 
 void *_malloc(size_t query) {
   struct MemoryHeader *header;
+  if (!query)
+    return NULL;
   if (!first)
     first = mmap_header(query);
   if (first == MAP_FAILED)
@@ -78,6 +80,8 @@ void *_malloc(size_t query) {
 
 void _free(void *mem) {
   struct MemoryHeader *header = mem;
+  if (!mem)
+    return;
   --header;
   header->flags |= IS_FREE;
   if (header->next && (header->next->flags & IS_FREE) &&
